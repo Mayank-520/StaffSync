@@ -1,0 +1,25 @@
+{
+  "name": "staffsync",
+  "version": "1.0.0",
+  "description": "StaffSync - Modern Human Resource Management Solution (MERN Stack)",
+  "scripts": {
+    "server": "npm run dev --prefix server",
+    "client": "npm run dev --prefix client",
+    "setup:admin": "npm run setup:admin --prefix server",
+    "test": "npm test --prefix server",
+    "install:server": "npm install --prefix server",
+    "install:client": "npm install --prefix client",
+    "install:all": "npm install --prefix server && npm install --prefix client"
+  },
+  "keywords": [
+    "staffsync",
+    "hrms",
+    "mern",
+    "react",
+    "express",
+    "mongodb",
+    "nodejs"
+  ],
+  "author": "",
+  "license": "ISC"
+}

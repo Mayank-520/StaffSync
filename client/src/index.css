@@ -1,0 +1,219 @@
+/* ========================================================
+   StaffSync Modern HRMS Theme
+   Preserving Canva UI Identity:
+   - Deep Navy Sidebar (#1a2238)
+   - Clean Off-white App Background (#f8fafc)
+   - Electric Blue Brand Accents (#0d6efd)
+   - Rounded Dashboard Cards & Clean Typography
+   ======================================================== */
+
+:root {
+  --staffsync-navy-dark: #121828;
+  --staffsync-navy-primary: #1a2238;
+  --staffsync-navy-light: #242f4c;
+  --staffsync-navy-hover: #2b3859;
+  --staffsync-blue: #0d6efd;
+  --staffsync-blue-hover: #0b5ed7;
+  --staffsync-blue-light: #e7f1ff;
+  --staffsync-bg-main: #f8fafc;
+  --staffsync-card-bg: #ffffff;
+  --staffsync-text-primary: #1e293b;
+  --staffsync-text-secondary: #64748b;
+  --staffsync-text-muted: #94a3b8;
+  --staffsync-border-color: #e2e8f0;
+  --staffsync-sidebar-width: 260px;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  background-color: var(--staffsync-bg-main);
+  color: var(--staffsync-text-primary);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Card Styling */
+.staffsync-card {
+  background-color: var(--staffsync-card-bg);
+  border: 1px solid var(--staffsync-border-color);
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.staffsync-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.staffsync-stat-card {
+  border-radius: 12px;
+  border: 1px solid var(--staffsync-border-color);
+  background: #ffffff;
+  padding: 1.25rem;
+  transition: all 0.2s ease-in-out;
+}
+
+.staffsync-stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+}
+
+.stat-icon-wrapper {
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+}
+
+/* Sidebar Styling */
+.staffsync-sidebar {
+  width: var(--staffsync-sidebar-width);
+  background-color: var(--staffsync-navy-primary);
+  color: #ffffff;
+  min-height: 100vh;
+  z-index: 1040;
+  transition: transform 0.3s ease-in-out;
+}
+
+.sidebar-brand-box {
+  padding: 1.5rem 1.25rem 1rem 1.25rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.sidebar-nav-item {
+  color: #cbd5e1;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  margin: 0.15rem 0.75rem;
+  font-size: 0.92rem;
+  font-weight: 500;
+  transition: all 0.15s ease;
+}
+
+.sidebar-nav-item:hover {
+  color: #ffffff;
+  background-color: var(--staffsync-navy-hover);
+}
+
+.sidebar-nav-item.active {
+  color: #ffffff;
+  background-color: var(--staffsync-blue);
+  box-shadow: 0 4px 10px rgba(13, 110, 253, 0.3);
+}
+
+.sidebar-nav-item i {
+  font-size: 1.15rem;
+  width: 24px;
+  margin-right: 12px;
+}
+
+/* Topbar Styling */
+.staffsync-topbar {
+  background-color: #ffffff;
+  border-bottom: 1px solid var(--staffsync-border-color);
+  height: 64px;
+  padding: 0 1.5rem;
+}
+
+/* Modern Soft Badges */
+.badge-soft-primary {
+  background-color: #e7f1ff;
+  color: #0d6efd;
+  font-weight: 600;
+}
+
+.badge-soft-success {
+  background-color: #dcfce7;
+  color: #15803d;
+  font-weight: 600;
+}
+
+.badge-soft-danger {
+  background-color: #fee2e2;
+  color: #b91c1c;
+  font-weight: 600;
+}
+
+.badge-soft-warning {
+  background-color: #fef9c3;
+  color: #a16207;
+  font-weight: 600;
+}
+
+.badge-soft-info {
+  background-color: #e0f2fe;
+  color: #0369a1;
+  font-weight: 600;
+}
+
+.badge-soft-secondary {
+  background-color: #f1f5f9;
+  color: #475569;
+  font-weight: 600;
+}
+
+/* Custom Table Styling */
+.staffsync-table {
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 100%;
+}
+
+.staffsync-table thead th {
+  background-color: #f8fafc;
+  color: #475569;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid var(--staffsync-border-color);
+}
+
+.staffsync-table tbody td {
+  padding: 1rem;
+  vertical-align: middle;
+  border-bottom: 1px solid #f1f5f9;
+  font-size: 0.9rem;
+}
+
+.staffsync-table tbody tr:hover td {
+  background-color: #f8fafc;
+}
+
+/* Modal and form controls */
+.form-control:focus, .form-select:focus {
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.15);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 991.98px) {
+  .staffsync-sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    transform: translateX(-100%);
+  }
+
+  .staffsync-sidebar.show {
+    transform: translateX(0);
+  }
+
+  .sidebar-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1030;
+  }
+}
