@@ -1,7 +1,34 @@
 import axios from 'axios';
 
+/**
+ * Determine API Base URL intelligently:
+ * 1. Checks VITE_API_BASE_URL environment variable (from .env, .env.production, or Vercel UI).
+ * 2. In production builds, falls back to deployed Render backend: https://staffsync-d320.onrender.com/api
+ * 3. In local development (npm run dev), falls back to local Express server: http://localhost:5000/api
+ * 4. Normalizes the URL so that trailing slashes are removed and '/api' is always included.
+ */
+const resolveBaseUrl = () => {
+  let url = import.meta.env.VITE_API_BASE_URL;
+
+  if (!url || typeof url !== 'string' || !url.trim()) {
+    url = import.meta.env.PROD
+      ? 'https://staffsync-d320.onrender.com/api'
+      : 'http://localhost:5000/api';
+  }
+
+  // Remove any trailing whitespace and slashes
+  url = url.trim().replace(/\/+$/, '');
+
+  // Ensure path ends with /api (backend mounts all routes under /api/*)
+  if (!url.endsWith('/api')) {
+    url += '/api';
+  }
+
+  return url;
+};
+
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api',
+  baseURL: resolveBaseUrl(),
   headers: {
     'Content-Type': 'application/json'
   }

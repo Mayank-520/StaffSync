@@ -18,23 +18,58 @@ const app = express();
 // ==========================================
 
 // Enable Cross-Origin Resource Sharing (CORS) for the frontend
-const allowedOrigins = [
-  process.env.CLIENT_URL || 'http://localhost:5173',
-  'http://localhost:3000',
-  'http://127.0.0.1:5173'
-];
+// Supports comma-separated list in CLIENT_URL (e.g. from Render dashboard)
+const parseAllowedOrigins = () => {
+  const configured = (process.env.CLIENT_URL || '')
+    .split(',')
+    .map((url) => url.trim().replace(/\/+$/, ''))
+    .filter(Boolean);
+
+  return [
+    ...configured,
+    'http://localhost:5173',
+    'http://localhost:3000',
+    'http://localhost:4173',
+    'http://127.0.0.1:5173',
+    'http://127.0.0.1:3000',
+    'http://127.0.0.1:4173'
+  ];
+};
+
+const isOriginAllowed = (origin) => {
+  if (!origin) return true; // Allow non-browser requests (Postman, curl, server-to-server)
+
+  const cleanOrigin = origin.replace(/\/+$/, '');
+  const allowed = parseAllowedOrigins();
+
+  // 1. Exact match in allowed origins list
+  if (allowed.includes(cleanOrigin)) {
+    return true;
+  }
+
+  // 2. Allow any Vercel production or preview deployment (*.vercel.app)
+  if (/^https:\/\/[a-zA-Z0-9-_.]+\.vercel\.app$/.test(cleanOrigin)) {
+    return true;
+  }
+
+  // 3. Allow localhost / 127.0.0.1 on any port during local development/testing
+  if (/^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(cleanOrigin)) {
+    return true;
+  }
+
+  return false;
+};
 
 app.use(cors({
   origin: (origin, callback) => {
-    // Allow requests with no origin (like mobile apps, curl, postman)
-    if (!origin || allowedOrigins.includes(origin)) {
+    if (isOriginAllowed(origin)) {
       return callback(null, true);
     }
     return callback(new Error(`CORS policy blocked access from origin: ${origin}`));
   },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
 }));
 
 // Body parser: parse JSON payloads
