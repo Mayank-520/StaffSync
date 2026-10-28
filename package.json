@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "description": "StaffSync - Modern Human Resource Management Solution (MERN Stack)",
   "scripts": {
+    "start": "npm --prefix server start",
+    "build": "npm --prefix server install",
     "server": "npm run dev --prefix server",
     "client": "npm run dev --prefix client",
     "setup:admin": "npm run setup:admin --prefix server",
