@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import Logo from '../common/Logo';
 
 const Sidebar = ({ isOpen, onClose }) => {
   const { user, logout } = useAuth();
@@ -26,34 +27,14 @@ const Sidebar = ({ isOpen, onClose }) => {
       {isOpen && <div className="sidebar-backdrop d-lg-none" onClick={onClose}></div>}
       <aside className={`staffsync-sidebar d-flex flex-column ${isOpen ? 'show' : ''}`}>
         {/* Brand Header */}
-        <div className="sidebar-brand-box d-flex align-items-center justify-content-between">
-          <div className="d-flex align-items-center">
-            <div
-              style={{
-                width: '38px',
-                height: '38px',
-                backgroundColor: '#0d6efd',
-                borderRadius: '8px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontWeight: 'bold',
-                fontSize: '1.25rem',
-                color: '#ffffff',
-                marginRight: '12px',
-                boxShadow: '0 4px 10px rgba(13, 110, 253, 0.4)'
-              }}
-            >
-              S
-            </div>
-            <div>
-              <div className="fw-bold text-white mb-0" style={{ fontSize: '1.1rem', letterSpacing: '0.4px' }}>
-                StaffSync
-              </div>
-              <small style={{ color: '#94a3b8', fontSize: '0.72rem' }}>HR Management</small>
-            </div>
-          </div>
-          <button className="btn btn-sm btn-link text-white d-lg-none p-0" onClick={onClose}>
+        <div className="sidebar-brand-box d-flex align-items-center justify-content-between py-3 px-3">
+          <Logo size="md" theme="light" showWordmark={true} />
+          <button
+            type="button"
+            className="btn btn-link text-white-50 p-0 d-lg-none"
+            onClick={onClose}
+            aria-label="Close Sidebar"
+          >
             <i className="bi bi-x-lg fs-5"></i>
           </button>
         </div>

@@ -45,6 +45,18 @@ export const AuthProvider = ({ children }) => {
     throw new Error(data.message || 'Login failed');
   };
 
+  const register = async (userData) => {
+    const data = await authService.register(userData);
+    if (data.success && data.token && data.user) {
+      setToken(data.token);
+      setUser(data.user);
+      localStorage.setItem('staffsync_token', data.token);
+      localStorage.setItem('staffsync_user', JSON.stringify(data.user));
+      return data.user;
+    }
+    throw new Error(data.message || 'Registration failed');
+  };
+
   const logout = () => {
     localStorage.removeItem('staffsync_token');
     localStorage.removeItem('staffsync_user');
@@ -80,6 +92,7 @@ export const AuthProvider = ({ children }) => {
         loading,
         isAuthenticated: Boolean(user && token),
         login,
+        register,
         logout,
         refreshUser,
         updateUserProfile

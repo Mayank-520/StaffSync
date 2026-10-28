@@ -3,7 +3,7 @@ import axios from 'axios';
 /**
  * Determine API Base URL intelligently:
  * 1. Checks VITE_API_BASE_URL environment variable (from .env, .env.production, or Vercel UI).
- * 2. In production builds, falls back to deployed Render backend: https://staffsync-d320.onrender.com/api
+ * 2. In production builds, falls back to deployed Render backend: https://staffsync-d3z0.onrender.com/api
  * 3. In local development (npm run dev), falls back to local Express server: http://localhost:5000/api
  * 4. Normalizes the URL so that trailing slashes are removed and '/api' is always included.
  */
@@ -12,7 +12,7 @@ const resolveBaseUrl = () => {
 
   if (!url || typeof url !== 'string' || !url.trim()) {
     url = import.meta.env.PROD
-      ? 'https://staffsync-d320.onrender.com/api'
+      ? 'https://staffsync-d3z0.onrender.com/api'
       : 'http://localhost:5000/api';
   }
 

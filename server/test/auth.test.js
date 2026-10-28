@@ -315,6 +315,44 @@ async function runTests() {
     assert(loginNewPw.status === 200, 'New password successfully authenticates user');
     const updatedEmpToken = loginNewPw.data.token;
 
+    // 3.11 GET /api/auth/demo-credentials
+    const demoCreds = await request('/api/auth/demo-credentials');
+    assert(demoCreds.status === 200, 'GET /api/auth/demo-credentials returns 200 OK');
+    assert(Array.isArray(demoCreds.data.accounts) && demoCreds.data.accounts.length === 3, 'Demo credentials lists 3 standard roles (HR, Manager, Employee)');
+
+    // 3.12 POST /api/auth/register - Validation rejection on missing fields
+    const registerInvalid = await request('/api/auth/register', {
+      method: 'POST',
+      body: { name: 'A', email: 'notanemail', password: '123' }
+    });
+    assert(registerInvalid.status === 400, 'POST /api/auth/register rejects invalid input with 400');
+
+    // 3.13 POST /api/auth/register - Successful registration & role enforcement
+    const registerSuccess = await request('/api/auth/register', {
+      method: 'POST',
+      body: {
+        name: 'Test New Registrant',
+        email: 'test_staffsync_registered@example.com',
+        password: 'SecurePass123!',
+        role: 'admin', // Attack attempt: attacker tries to self-elevate to admin
+        department: 'Support'
+      }
+    });
+    assert(registerSuccess.status === 201, 'POST /api/auth/register succeeds with 201 Created');
+    assert(registerSuccess.data.user.role === 'employee', 'Public registration forces least-privileged "employee" role (ignores self-elevation)');
+    assert(Boolean(registerSuccess.data.token), 'Registration returns active JWT session token');
+
+    // 3.14 POST /api/auth/register - Duplicate email rejection
+    const registerDuplicate = await request('/api/auth/register', {
+      method: 'POST',
+      body: {
+        name: 'Test Duplicate',
+        email: 'test_staffsync_registered@example.com',
+        password: 'AnotherPassword123!'
+      }
+    });
+    assert(registerDuplicate.status === 400, 'POST /api/auth/register rejects duplicate email with 400');
+
     // ==========================================
     // SUITE 4: Role-Based Access Control (RBAC)
     // ==========================================
